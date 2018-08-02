@@ -1,22 +1,34 @@
 var Discord = require("discord.js"),
-    client = new Discord.Client(),
+    bot = new Discord.Client(),
     config = require("./config.json");
 
-client.on("ready", () => {
-    console.log("It works! Logged in as " + client.user.username);
+bot.on("ready", () => {
+    console.log("It works! Logged in as " + bot.user.username);
 });
 
-client.on("message", message => {
-    if(!message.content.startsWith(config.prefix)|| message.author.bot) return;
-    
-    if (message.content.startsWith(config.prefix+"ping")) {
-        message.reply("POOOOOOOONG!");
+bot.on("message", msg => {
+    if(msg.content.match(/good morning/i)){
+        msg.reply("It's afternoon...");
     }
-    if (message.content.startsWith(config.prefix+"foo")) {
-        message.channel.send("bar!");
+    if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+
+    if (msg.content.startsWith(config.prefix + "ping")) {
+        msg.reply("POOOOOOOONG!");
     }
+    if (msg.content.startsWith(config.prefix + "foo")) {
+        msg.channel.send("bar!");
+    }
+    if (msg.content.startsWith(config.prefix + "hug")) {
+        if (!msg.mentions.users.array()[0]) {
+            msg.channel.send(`*hugs* ***${msg.author}***`);
+        }
+        else {
+            let huggee = msg.mentions.users.array()[0];
+            msg.channel.send(`*hugs* ***${huggee.username}***`);
+        }
+    }
+
 });
 
-client.login(config.token);
+bot.login(config.token);
 
-//Michael
