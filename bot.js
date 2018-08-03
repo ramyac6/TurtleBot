@@ -27,7 +27,11 @@ bot.on("message", msg => {
             msg.channel.send(`*hugs* ***${huggee.username}***`);
         }
     }
-
+    if (msg.content.startsWith(config.prefix + "repeat")) {
+        let mess = msg.content;
+        msg.channel.send(mess.substring(8));
+        msg.delete();
+    }
 });
 
 bot.login(config.token);
