@@ -51,8 +51,9 @@ bot.on("message", msg => {
             msg.channel.send("hecc you, you're not allowed");
         }
     }
-    
+
     //TODO fix
+    //gives weird promise error
     if (msg.content.startsWith(config.prefix + "repeatspam")) {
         if (msg.member.id == config.myUserID) {
             let mess = msg.content;
