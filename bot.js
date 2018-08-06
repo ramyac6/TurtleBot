@@ -13,7 +13,7 @@ bot.on("message", msg => {
     }
 
     //checks if ro says hmm
-    if (msg.content.match(/hmm/i)&&msg.member.id == config.roID) {
+    if (msg.content.match(/hmm/i) && msg.member.id == config.roID) {
         msg.channel.send("Correct.");
     }
 
@@ -24,7 +24,7 @@ bot.on("message", msg => {
     if (msg.content.startsWith(config.prefix + "ping")) {
         msg.reply("POOOOOOOONG!");
     }
-    
+
     //my second command
     if (msg.content.startsWith(config.prefix + "foo")) {
         msg.channel.send("bar!");
@@ -43,9 +43,9 @@ bot.on("message", msg => {
 
     //evil bot control for me and al
     if (msg.content.startsWith(config.prefix + "repeat")) {
-        if (msg.member.id == config.alID||msg.member.id == config.myUserID) {
+        if (msg.member.id == config.alID || msg.member.id == config.myUserID) {
             let mess = msg.content;
-            msg.channel.send(mess.substring(8));
+            msg.channel.send(mess.substring(mess.indexOf(" ")));
             msg.delete();
         } else {
             msg.channel.send("hecc you, you're not allowed");
@@ -61,7 +61,21 @@ bot.on("message", msg => {
             msg.delete();
         } else {
             msg.channel.send("hecc you, you're not allowed");
+            msg.delete();
         }
+    }
+
+    if (msg.content.startsWith(config.prefix + "emoji")){
+        //if(msg.content.includes("cole")) {
+            let emoji = msg.content.substring(msg.content.indexOf(" "));
+            const name = bot.emojis.find("name", emoji);
+            if(name!=null){
+                msg.channel.send(name.toString());
+
+            } else {
+                msg.channel.send("oops")
+            }
+        //}
     }
 });
 
