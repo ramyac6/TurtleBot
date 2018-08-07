@@ -4,6 +4,7 @@ var Discord = require("discord.js"),
 
 bot.on("ready", () => {
     console.log("It works! Logged in as " + bot.user.username);
+    bot.user.setActivity(config.prefix + "help");
 });
 
 bot.on("message", msg => {
@@ -28,6 +29,11 @@ bot.on("message", msg => {
     //my second command
     if (msg.content.startsWith(config.prefix + "foo")) {
         msg.channel.send("bar!");
+    }
+
+    //help
+    if (msg.content.startsWith(config.prefix + "help")) {
+        msg.channel.send("I don't have many commands yet, but you can try ping, foo, or hug");
     }
 
     //hugs 
