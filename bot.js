@@ -9,7 +9,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     //checks if good morning is said
-    if (msg.content.match(/good morning/i)) {
+    if (msg.content.match(/good morning/i) && msg.member.id==config.anID) {
         msg.reply("It's afternoon...");
     }
 
