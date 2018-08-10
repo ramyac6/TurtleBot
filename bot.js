@@ -9,7 +9,7 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
     //checks if good morning is said
-    if (msg.content.match(/good morning/i) && msg.member.id==config.anID) {
+    if (msg.content.match(/good morning/i) && msg.member.id == config.anID) {
         msg.reply("It's afternoon...");
     }
 
@@ -29,6 +29,10 @@ bot.on("message", msg => {
     //my second command
     if (msg.content.startsWith(config.prefix + "foo")) {
         msg.channel.send("bar!");
+    }
+
+    if (msg.content.startsWith(config.prefix + "hi")) {
+        msg.channel.send("ew");
     }
 
     //help
@@ -71,18 +75,35 @@ bot.on("message", msg => {
         }
     }
 
-    if (msg.content.startsWith(config.prefix + "emoji")){
+    if (msg.content.startsWith(config.prefix + "emoji")) {
         //if(msg.content.includes("cole")) {
-            let emoji = msg.content.substring(msg.content.indexOf(" "));
-            const name = bot.emojis.find("name", emoji);
-            if(name!=null){
-                msg.channel.send(name.toString());
+        let emoji = msg.content.substring(msg.content.indexOf(" "));
+        const name = bot.emojis.find("name", emoji);
+        if (name != null) {
+            msg.channel.send(name.toString());
 
-            } else {
-                msg.channel.send("oops")
-            }
+        } else {
+            msg.channel.send("oops")
+        }
         //}
     }
+    // disallow killing this program by anyone but the bot creator
+    if (msg.content.startsWith(config.prefix + "die")) {
+
+        msg.channel.send(":scream: Shutting down :skull:").then(() => {
+            console.log(`Shutdown by ${msg.author}.`);
+            
+            resetBot(msg.channel);
+        });
+    }
 });
+
+// Turn bot off (destroy), then turn it back on
+function resetBot(channel) {
+    // send channel a message that you're resetting bot [optional]
+    channel.send('Resetting...')
+        .then(msg => bot.destroy())
+        .then(() => bot.login(config.token));
+}
 
 bot.login(config.token);
