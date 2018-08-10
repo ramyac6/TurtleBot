@@ -1,35 +1,110 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const fs = require("fs");
+const   Discord = require("discord.js"),
+        bot = new Discord.Client(),
+        fs = require("fs")
+
 
 const config = require("./config.json");
 
-// This loop reads the /events/ folder and attaches each event file to the appropriate event.
-fs.readdir("./events/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(file => {
-    let eventFunction = require(`./events/${file}`);
-    let eventName = file.split(".")[0];
-    // super-secret recipe to call events with all their proper arguments *after* the `client` var.
-    bot.on(eventName, (...args) => eventFunction.run(bot, ...args));
-  });
+bot.on("ready", () => {
+    console.log("It works! Logged in as " + bot.user.username);
+    bot.user.setActivity(config.prefix + "help");
 });
 
 bot.on("message", msg => {
-  if (msg.author.bot) return;
-  if(msg.content.indexOf(config.prefix) !== 0) return;
+    //checks if good morning is said
+    if (msg.content.match(/good morning/i) && msg.member.id == config.anID) {
+        msg.reply("It's afternoon...");
+    }
 
-  // This is the best way to define args. Trust me.
-  const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
+    //checks if ro says hmm
+    if (msg.content.match(/hmm/i) && msg.member.id == config.roID) {
+        msg.channel.send("Correct.");
+    }
 
-  // The list of if/else is replaced with those simple 2 lines:
-  try {
-    let commandFile = require(`./commands/${command}.js`);
-    commandFile.run(bot, msg, args);
-  } catch (err) {
-    console.error(err);
-  }
+    //idk what this does
+    if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+
+    //my first command <3
+    if (msg.content.startsWith(config.prefix + "ping")) {
+        msg.reply("POOOOOOOONG!");
+    }
+
+    //my second command
+    if (msg.content.startsWith(config.prefix + "foo")) {
+        msg.channel.send("bar!");
+    }
+
+    //help
+    if (msg.content.startsWith(config.prefix + "help")) {
+        msg.channel.send("I don't have many commands yet, but you can try ping, foo, or hug");
+    }
+
+    //hugs 
+    if (msg.content.startsWith(config.prefix + "hug")) {
+        if (!msg.mentions.users.array()[0]) {
+            msg.channel.send(`*hugs* ***${msg.author}***`);
+        }
+        else {
+            let huggee = msg.mentions.users.array()[0];
+            msg.channel.send(`*hugs* ***${huggee.username}***`);
+        }
+    }
+
+    //evil bot control for me and al
+    if (msg.content.startsWith(config.prefix + "repeat")) {
+        if (msg.member.id == config.alID || msg.member.id == config.myUserID) {
+            let mess = msg.content;
+            msg.channel.send(mess.substring(mess.indexOf(" ")));
+            msg.delete();
+        } else {
+            msg.channel.send("hecc you, you're not allowed");
+        }
+    }
+
+    //TODO fix
+    //gives weird promise error
+    if (msg.content.startsWith(config.prefix + "repeatspam")) {
+        if (msg.member.id == config.myUserID) {
+            let mess = msg.content;
+            bot.channels.get(config.testID).send(mess.substring(12));
+            msg.delete();
+        } else {
+            msg.channel.send("hecc you, you're not allowed");
+            msg.delete();
+        }
+    }
+
+    //emoji command
+    if (msg.content.startsWith(config.prefix + "emoji")) {
+        //if(msg.content.includes("cole")) {
+        let emoji = msg.content.substring(msg.content.indexOf(" "));
+        const name = bot.emojis.find("name", emoji);
+        if (name != null) {
+            msg.channel.send(name.toString());
+
+        } else {
+            msg.channel.send("oops")
+        }
+        //}
+    }
+    
+    // disallow killing this program by anyone but the bot creator
+    if (msg.content.startsWith(config.prefix + "die")) {
+
+        msg.channel.send(":scream: Shutting down :skull:").then(() => {
+            console.log(`Shutdown by ${msg.author}.`);
+            
+            resetBot(msg.channel);
+        });
+    }
 });
+
+// Turn bot off (destroy), then turn it back on
+function resetBot(channel) {
+    // send channel a message that you're resetting bot [optional]
+    channel.send('Resetting...')
+        .then(msg => bot.destroy())
+        .then(() => bot.login(config.token));
+}
 
 bot.login(config.token);
