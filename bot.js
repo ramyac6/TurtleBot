@@ -17,7 +17,7 @@ fs.readdir("./events/", (err, files) => {
 
 bot.on("ready", () => {
     console.log("It works! Logged in as " + bot.user.username);
-    bot.user.setActivity(config.prefix + "help");
+    bot.user.setActivity("DON'T USE ME RIGHT NOW");
 });
 
 bot.on("message", msg => {
