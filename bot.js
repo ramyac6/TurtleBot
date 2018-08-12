@@ -26,6 +26,10 @@ bot.on("message", msg => {
     msg.reply("It's afternoon...");
     return;
   }
+  if (msg.content.match(/hmm/i) && msg.member.id == config.roID) {
+    msg.channel.send("Correct.");
+    return;
+  }
   if (msg.content.indexOf(config.prefix) !== 0) return;
 
 
