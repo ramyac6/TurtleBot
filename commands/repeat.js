@@ -1,5 +1,6 @@
 const config = require("../config.json");
 
+//Sends message to same channel, no evidence
 exports.run = (bot, msg, args, level) => {
 	if (msg.member.id == config.alID || msg.member.id == config.myUserID) {
         let mess = msg.content;

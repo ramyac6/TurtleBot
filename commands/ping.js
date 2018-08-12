@@ -1,3 +1,4 @@
+//Checks response time
 exports.run = async (bot, msg, args) => {
     const m = await msg.channel.send("Ping?");
 

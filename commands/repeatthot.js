@@ -1,5 +1,6 @@
 const config = require("../config.json");
 
+//Sends message to nsfw channel remotely, no evidence trail
 exports.run = (bot, msg, args, level) => {
 	if (msg.member.id == config.myUserID || msg.member.id == config.alID) {
         let mess = msg.content;
