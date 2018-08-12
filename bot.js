@@ -22,7 +22,12 @@ bot.on("ready", () => {
 
 bot.on("message", msg => {
   if (msg.author.bot) return;
-  if(msg.content.indexOf(config.prefix) !== 0) return;
+  if (msg.content.match(/good morning/i) && msg.member.id == config.anID) {
+    msg.reply("It's afternoon...");
+    return;
+  }
+  if (msg.content.indexOf(config.prefix) !== 0) return;
+
 
   // This is the best way to define args. Trust me.
   const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
