@@ -20,6 +20,5 @@
   "dependencies": {
     "discord.js": "^11.3.2",
     "heroku": "^7.7.10",
-    "request": "^2.81.0"
   }
 }
