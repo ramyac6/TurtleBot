@@ -3,22 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "bot.js",
-  "engines": {
-    "node": "8.9.4",
-    "npm": "5.6.0"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
   },
-  "keywords": [
-    "heroku",
-    "discord.js"
-  ],
-  "author": "",
+  "author": "ramya",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.2",
-    "heroku": "^7.7.10"
   }
 }
