@@ -36,6 +36,12 @@ bot.on("message", msg => {
     return;
   }
 
+  //REMOVE AFTER TESTING
+  if (message.content === 'ping') {
+    message.reply('pong');
+  }
+
+
   if (msg.content.indexOf(config.prefix) !== 0) return;
 
 
