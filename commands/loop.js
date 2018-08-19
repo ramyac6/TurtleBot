@@ -1,5 +1,5 @@
 //Loops bot, so it should in theory, not turn off when on heroku
-exports.run = (bot, msg, args, level) => {
+exports.run = async (bot, msg, args, level) => {
 	if (msg.member.id == process.env.myUserID) {
         var interval = setInterval (function (){
             const m = await bot.channels.get(process.env.loggingID).send("Ping?");
