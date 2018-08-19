@@ -6,8 +6,7 @@ exports.run = async (bot, msg, args, level) => {
 
             //m.edit(`Pong! \nTook ${m.createdTimestamp-msg.createdTimestamp} ms`).catch(console.error);
 
-            bot.channels.get(process.env.loggingID).send("ping pong");
-          }, 5000); // time between each interval in milliseconds 
+            bot.channels.get(process.env.upID).send("ping pong");
+          }, 900000); // time between each interval in milliseconds 
     }
 };
-//900000
