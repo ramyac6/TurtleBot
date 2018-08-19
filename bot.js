@@ -4,6 +4,7 @@ const fs = require("fs");
 
 const config = require("./config.json");
 
+
 // This loop reads the /events/ folder and attaches each event file to the appropriate event.
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
@@ -17,12 +18,34 @@ fs.readdir("./events/", (err, files) => {
 
 bot.on("ready", () => {
     console.log("It works! Logged in as " + bot.user.username);
-    bot.user.setActivity("DON'T USE ME RIGHT NOW");
+    bot.user.setActivity("plz don't break me");
 });
 
 bot.on("message", msg => {
+  //Prevents responses to other bots
   if (msg.author.bot) return;
-  if(msg.content.indexOf(config.prefix) !== 0) return;
+
+  //Response to An's good morning
+  if (msg.content.match(/good morning/i) && msg.member.id == config.anID) {
+    msg.reply("It's afternoon...");
+    return;
+  }
+
+  //Response to Ro's hmm
+  if (msg.content.match(/hmm/i) && msg.member.id == config.roID) {
+    msg.channel.send("Correct.");
+    return;
+  }
+
+  //REMOVE AFTER TESTING
+  if (msg.content === 'ping') {
+    msg.reply('pong');
+  }
+
+
+  if (msg.content.indexOf(config.prefix) !== 0) return;
+
+
 
   // This is the best way to define args. Trust me.
   const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
