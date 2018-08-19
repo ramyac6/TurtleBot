@@ -2,7 +2,8 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const fs = require("fs");
 
-//const config = require("./config.json");
+const config = require("./config.json");
+
 
 // This loop reads the /events/ folder and attaches each event file to the appropriate event.
 fs.readdir("./events/", (err, files) => {
@@ -45,11 +46,11 @@ bot.on("message", msg => {
   if (msg.content.indexOf(config.prefix) !== 0) return;
 
 
+
   // This is the best way to define args. Trust me.
   const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  //TODO: fix it so it doesn't break on bad commands
   // The list of if/else is replaced with those simple 2 lines:
   try {
     let commandFile = require(`./commands/${command}.js`);
@@ -59,5 +60,4 @@ bot.on("message", msg => {
   }
 });
 
-//bot.login(config.token);
-bot.login(process.env.token);
+bot.login(config.token);
