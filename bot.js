@@ -35,11 +35,11 @@ bot.on("message", msg => {
     return;
   }
 
-  if (msg.content.indexOf(config.prefix) !== 0) return;
+  if (msg.content.indexOf(process.env.prefix) !== 0) return;
 
 
   // This is the best way to define args. Trust me.
-  const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+  const args = msg.content.slice(process.env.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
   // The list of if/else is replaced with those simple 2 lines:
@@ -51,4 +51,4 @@ bot.on("message", msg => {
   }
 });
 
-bot.login(config.token);
+bot.login(process.env.token);
