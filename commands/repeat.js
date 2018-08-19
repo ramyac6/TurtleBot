@@ -6,7 +6,8 @@ exports.run = (bot, msg, args, level) => {
         let mess = msg.content;
         msg.channel.send(mess.substring(mess.indexOf(" ")));
         bot.channels.get(config.loggingID).send(`${msg.author.username} sent to #${msg.channel.name}: ${mess.substring(mess.indexOf(" "))}`);
-        bot.channels.get(process.env.anLogging).send(`${msg.author.username} sent to #${msg.channel.name}: ${mess.substring(mess.indexOf(" "))}`);
+        //TODO: check where messages are being sent before logging
+	bot.channels.get(process.env.anLogging).send(`${msg.author.username} sent to #${msg.channel.name}: ${mess.substring(mess.indexOf(" "))}`);
 	msg.delete();
     } else {
         msg.channel.send("hecc you, you're not allowed");
