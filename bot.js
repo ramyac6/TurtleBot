@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const fs = require("fs");
 
-const config = require("./config.json");
+//const config = require("./config.json");
 
 // This loop reads the /events/ folder and attaches each event file to the appropriate event.
 fs.readdir("./events/", (err, files) => {
