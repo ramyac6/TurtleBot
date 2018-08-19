@@ -7,9 +7,7 @@ exports.run = async (bot, msg, args, level) => {
             m.edit(`Pong! \nTook ${m.createdTimestamp-msg.createdTimestamp} ms`).catch(console.error);
 
             //bot.channels.get(process.env.loggingID).send(`Pong! \nTook ${m.createdTimestamp-msg.createdTimestamp} ms`);
-          }, 30000); // time between each interval in milliseconds 
-    } else {
-        msg.channel.send("no");
+          }, 5000); // time between each interval in milliseconds 
     }
 };
 //900000
