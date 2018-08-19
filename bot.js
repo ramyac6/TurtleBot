@@ -37,8 +37,8 @@ bot.on("message", msg => {
   }
 
   //REMOVE AFTER TESTING
-  if (message.content === 'ping') {
-    message.reply('pong');
+  if (msg.content === 'ping') {
+    msg.reply('pong');
   }
 
 
