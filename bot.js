@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const fs = require("fs");
 
-const config = require("./config.json");
-
 
 // This loop reads the /events/ folder and attaches each event file to the appropriate event.
 fs.readdir("./events/", (err, files) => {
@@ -26,25 +24,18 @@ bot.on("message", msg => {
   if (msg.author.bot) return;
 
   //Response to An's good morning
-  if (msg.content.match(/good morning/i) && msg.member.id == config.anID) {
+  if (msg.content.match(/good morning/i) && msg.member.id == process.env.anID) {
     msg.reply("It's afternoon...");
     return;
   }
 
   //Response to Ro's hmm
-  if (msg.content.match(/hmm/i) && msg.member.id == config.roID) {
+  if (msg.content.match(/hmm/i) && msg.member.id == process.env.roID) {
     msg.channel.send("Correct.");
     return;
   }
 
-  //REMOVE AFTER TESTING
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-  }
-
-
   if (msg.content.indexOf(config.prefix) !== 0) return;
-
 
 
   // This is the best way to define args. Trust me.
