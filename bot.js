@@ -25,7 +25,7 @@ bot.on("message", msg => {
 
   //Response to An's good morning
   if (msg.content.match(/good morning/i) && msg.member.id == process.env.anID) {
-    msg.reply("It's afternoon...");
+    msg.reply("It's afternoon my captain");
     return;
   }
 
